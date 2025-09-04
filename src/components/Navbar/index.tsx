@@ -12,7 +12,7 @@ export const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 flex flex-row items-center justify-between p-4 z-50">
       <div className="flex flex-row items-center gap-x-4">
         <button
-          className="p-1 bg-secondary/5 rounded-sm outline-none cursor-pointer"
+          className="p-1 bg-secondary/5 rounded-lg outline-none cursor-pointer"
           onClick={() => setShowMenu(!showMenu)}
         >
           <Menu className="w-6 h-6 text-secondary" />
