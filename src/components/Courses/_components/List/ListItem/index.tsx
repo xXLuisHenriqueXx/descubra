@@ -1,8 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 
-import { Separator } from "../../Separator";
-
 import type { ICourse } from "../../../../../static/CoursesData";
+import { Separator } from "../../../../ui/separator";
 
 interface IListItemProps {
   color: string;
@@ -23,7 +22,7 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
         >
           <Separator />
 
-          <p className="text-sm font-normal text-secondary indent-4">
+          <p className="text-xs font-normal text-foreground indent-4">
             {course.description}
           </p>
 
@@ -33,8 +32,8 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
             <div
               className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-secondary">Duração</h3>
-              <p className="text-sm font-medium text-secondary/75 text-center">
+              <h3 className="text-sm font-bold text-foreground">Duração</h3>
+              <p className="text-xs font-medium text-foreground/75 text-center">
                 {course.duration}
               </p>
             </div>
@@ -42,8 +41,8 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
             <div
               className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-secondary">DCG</h3>
-              <p className="text-sm font-medium text-secondary/75 text-center">
+              <h3 className="text-sm font-bold text-foreground">DCG</h3>
+              <p className="text-xs font-medium text-foreground/75 text-center">
                 {course.dcg}
               </p>
             </div>
@@ -51,8 +50,8 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
             <div
               className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-secondary">ACG</h3>
-              <p className="text-sm font-medium text-secondary/75 text-center">
+              <h3 className="text-sm font-bold text-foreground">ACG</h3>
+              <p className="text-xs font-medium text-foreground/75 text-center">
                 {course.acg}
               </p>
             </div>
@@ -60,8 +59,8 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
             <div
               className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-secondary">Extensão</h3>
-              <p className="text-sm font-medium text-secondary/75 text-center">
+              <h3 className="text-sm font-bold text-foreground">Extensão</h3>
+              <p className="text-xs font-medium text-foreground/75 text-center">
                 {course.extension}
               </p>
             </div>
@@ -70,7 +69,7 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
           <Separator />
 
           <div className="flex flex-col gap-y-2 w-full">
-            <h2 className="text-sm font-semibold text-secondary/95">
+            <h2 className="text-sm font-semibold text-foreground/95">
               Interesses e Afinidades
             </h2>
 
@@ -78,13 +77,13 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
               {course.affinities.map((affinity) => (
                 <div
                   key={affinity.id}
-                  className="flex flex-row items-center gap-x-2 py-2 px-4 bg-secondary/5 shadow-sm shadow-black/5 rounded-lg"
+                  className="flex flex-row items-center gap-x-2 py-2 px-4 bg-foreground/10 shadow-sm shadow-black/5 rounded-lg"
                 >
                   <affinity.Icon
-                    className="w-4 h-4 text-secondary"
+                    className="w-4 h-4 text-foreground"
                     strokeWidth={2}
                   />
-                  <p className="text-xs font-normal text-secondary">
+                  <p className="text-xs font-normal text-foreground">
                     {affinity.title}
                   </p>
                 </div>
@@ -95,14 +94,14 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
           <Separator />
 
           <div className="flex flex-col gap-y-2 w-full">
-            <h2 className="text-sm font-semibold text-secondary/95">
+            <h2 className="text-sm font-semibold text-foreground/95">
               Atuações
             </h2>
 
             {course.actions.map((action) => (
               <p
                 key={action}
-                className={`py-2 px-4 ${color} shadow-sm shadow-black/5 rounded-lg text-sm font-normal text-secondary`}
+                className={`py-2 px-4 ${color} shadow-sm shadow-black/5 rounded-lg text-xs font-normal text-foreground`}
               >
                 {action}
               </p>

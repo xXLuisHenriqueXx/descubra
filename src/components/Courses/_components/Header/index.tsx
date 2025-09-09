@@ -10,11 +10,11 @@ export const Header = ({ data, gradients }: IHeaderProps) => {
     <div
       className={`flex flex-row items-center gap-x-4 w-full p-4 bg-gradient-to-r ${
         gradients[data.color]
-      } rounded-lg`}
+      } rounded-xl`}
     >
-      <data.icon className="w-6 h-6 text-secondary" strokeWidth={2} />
+      <data.icon className="w-6 h-6 text-foreground" strokeWidth={2} />
 
-      <h1 className="text-base font-bold text-secondary">{data.title}</h1>
+      <h1 className="text-base font-bold text-foreground">{data.title}</h1>
     </div>
   );
 };

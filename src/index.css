@@ -1,16 +1,100 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-@theme {
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* RADIUS */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
   /* COLORS */
-  --color-primary: #0264e3;
-  --color-secondary: #eff6fa;
-  --color-background: #252729;
-  --color-process: #25b4f2;
-  --color-ecosystem: #25f2bb;
-  --color-energy: #e65322;
-  --color-project: #e6223d;
-  --color-tech: #7422e6;
+  --color-process: var(--process);
+  --color-ecosystem: var(--ecosystem);
+  --color-energy: var(--energy);
+  --color-project: var(--project);
+  --color-tech: var(--tech);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-card: var(--card);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-ring: var(--ring);
+  --color-border: var(--border);
 
   /* FONTS */
   --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --background: rgba(255, 255, 255, 1);
+  --foreground: rgba(37, 39, 41, 1);
+  --primary: rgba(2, 100, 227, 1);
+  --secondary: rgba(37, 39, 41, 0.1);
+  --secondary-foreground: rgba(37, 39, 41, 1);
+
+  --process: rgba(37, 180, 242, 1);
+  --ecosystem: rgb(45, 211, 167);
+  --energy: rgba(230, 83, 34, 1);
+  --project: rgba(230, 34, 61, 1);
+  --tech: rgba(116, 34, 230, 1);
+
+  --card: rgba(37, 39, 41, 0.1);
+
+  --chart-1: rgba(245, 73, 0, 1);
+  --chart-2: rgba(0, 150, 137, 1);
+  --chart-3: rgba(16, 78, 100, 1);
+  --chart-4: rgba(255, 185, 0, 1);
+  --chart-5: rgba(254, 154, 0, 1);
+
+  --border: rgba(37, 39, 41, 0.1);
+  --ring: rgba(37, 39, 41, 0.2);
+}
+
+.dark {
+  --background: rgba(37, 39, 41, 1);
+  --foreground: rgba(255, 255, 255, 1);
+  --primary: rgba(2, 100, 227, 1);
+  --secondary: rgba(255, 255, 255, 0.05);
+  --secondary-foreground: rgba(255, 255, 255, 1);
+
+  --process: rgba(37, 180, 242, 1);
+  --ecosystem: rgba(37, 242, 187, 1);
+  --energy: rgba(230, 83, 34, 1);
+  --project: rgba(230, 34, 61, 1);
+  --tech: rgb(136, 80, 215);
+
+  --card: rgba(255, 255, 255, 0.05);
+
+  --chart-1: rgba(20, 71, 230, 1);
+  --chart-2: rgba(0, 188, 125, 1);
+  --chart-3: rgba(254, 154, 0, 1);
+  --chart-4: rgba(173, 70, 255, 1);
+  --chart-5: rgba(255, 32, 86, 1);
+
+  --border: rgba(255, 255, 255, 0.1);
+  --ring: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

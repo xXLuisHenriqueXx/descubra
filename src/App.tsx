@@ -1,5 +1,20 @@
+import { Navbar } from "./components/Navbar";
+import { Courses } from "./components/Courses";
+import { Introduction } from "./components/Introduction";
+import { HeaderFilter } from "./components/HeaderFilter";
+
 function App() {
-  return <h1 className="text-3xl font-bold text-blue-900">Hello World!</h1>;
+  return (
+    <main className="flex flex-col gap-y-8 min-w-full min-h-screen py-20 font-inter">
+      <Navbar />
+
+      <HeaderFilter />
+
+      <Courses />
+
+      <Introduction />
+    </main>
+  );
 }
 
 export default App;

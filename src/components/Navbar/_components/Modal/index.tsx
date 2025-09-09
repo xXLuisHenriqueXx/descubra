@@ -10,7 +10,7 @@ export const Modal = ({ showMenu }: IModalProps) => {
     <AnimatePresence>
       {showMenu && (
         <motion.nav
-          className="fixed top-15 left-4 flex flex-col items-start justify-center gap-y-4 py-6 px-4 bg-secondary rounded-lg"
+          className="fixed top-15 left-4 flex flex-col items-start justify-center gap-y-4 py-6 px-4 bg-foreground rounded-lg z-50"
           initial={{ opacity: 0, translateY: -16 }}
           animate={{ opacity: 1, translateY: 0 }}
           exit={{ opacity: 0, translateY: -16 }}
