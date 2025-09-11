@@ -4,7 +4,7 @@ import { Header } from "./_components/Header";
 import { GeneralInfo } from "./_components/GeneralInfo";
 import { List } from "./_components/List";
 
-import { CoursesData } from "../../static/CoursesData";
+import { CoursesData } from "../../../../static/CoursesData";
 
 export const Courses = () => {
   const [visible, setVisible] = useState<Record<string, boolean>>({});

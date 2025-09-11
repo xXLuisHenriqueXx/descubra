@@ -6,8 +6,12 @@ import {
   Rectangle,
   XAxis,
 } from "recharts";
-import { Card, CardContent } from "../../../ui/card";
-import { ChartContainer, type ChartConfig } from "../../../ui/chart";
+
+import { Card, CardContent } from "../../../../../../components/ui/card";
+import {
+  ChartContainer,
+  type ChartConfig,
+} from "../../../../../../components/ui/chart";
 
 interface IChartBarProps {
   title: string;

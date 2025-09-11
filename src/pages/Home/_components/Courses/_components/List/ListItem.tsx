@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 
-import type { ICourse } from "../../../../../static/CoursesData";
-import { Separator } from "../../../../ui/separator";
+import { Separator } from "../../../../../../components/ui/separator";
+
+import type { ICourse } from "../../../../../../static/CoursesData";
 
 interface IListItemProps {
   color: string;

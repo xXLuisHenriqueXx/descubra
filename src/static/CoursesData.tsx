@@ -52,11 +52,11 @@ import {
   Computing,
   Automobile,
   ManufacturingProcesses,
-} from "../components/Pictograms/Affinities";
+} from "../pages/Home/_components/Pictograms/Affinities";
 import {
   ReputationFive,
   ReputationFour,
-} from "../components/Pictograms/Reputations";
+} from "../pages/Home/_components/Pictograms/Reputations";
 import {
   Accessibility,
   AdvancedManufacturing,
@@ -171,7 +171,7 @@ import {
   VR,
   WaterResourcesManagement,
   WirelessCommunicationSystems,
-} from "../components/Pictograms/Actions";
+} from "../pages/Home/_components/Pictograms/Actions";
 
 interface IAffinity {
   id: string;

@@ -1,4 +1,4 @@
-import type { ICourses } from "../../../../static/CoursesData";
+import type { ICourses } from "../../../../../../static/CoursesData";
 
 interface IHeaderProps {
   data: ICourses;

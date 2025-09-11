@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 
 import { Modal } from "./_components/Modal";
+import { Button } from "../../../../components/ui/button";
 
 import LogoCTLight from "@assets/logo_ct_light.png";
 import LogoCTDark from "@assets/logo_ct_dark.png";
-import { Button } from "../ui/button";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);

@@ -1,9 +1,10 @@
-import { ExtraInfoData } from "../../static/ExtraInfoData";
-import type { ChartConfig } from "../ui/chart";
 import { Info } from "./_components/Info";
 import { ChartPie } from "./_components/ChartPie";
 import { Map } from "./_components/Map";
 import { ChartBar } from "./_components/ChartBar";
+
+import type { ChartConfig } from "../../../../components/ui/chart";
+import { ExtraInfoData } from "../../../../static/ExtraInfoData";
 
 export const Introduction = () => {
   const chartDataJobsIncrease = [

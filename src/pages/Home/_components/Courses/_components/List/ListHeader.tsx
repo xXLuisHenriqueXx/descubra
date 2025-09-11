@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronUp, GraduationCap } from "lucide-react";
 
-import type { ICourse, ICourses } from "../../../../../static/CoursesData";
+import type { ICourse, ICourses } from "../../../../../../static/CoursesData";
 
 interface IListHeaderProps {
   data: ICourses;

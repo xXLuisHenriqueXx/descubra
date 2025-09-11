@@ -1,8 +1,7 @@
 import { useState } from "react";
-
-import { Card, CardContent } from "../ui/card";
-import { Separator } from "../ui/separator";
-import { Input } from "../ui/input";
+import { Card, CardContent } from "../../../../components/ui/card";
+import { Input } from "../../../../components/ui/input";
+import { Separator } from "../../../../components/ui/separator";
 
 export const HeaderFilter = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");

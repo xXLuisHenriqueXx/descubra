@@ -1,12 +1,13 @@
 import { Label, Pie, PieChart, Sector } from "recharts";
-import { Card, CardContent } from "../../../ui/card";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
+
+import { Card, CardContent } from "../../../../../../components/ui/card";
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   type ChartConfig,
-} from "../../../ui/chart";
-import type { PieSectorDataItem } from "recharts/types/polar/Pie";
+} from "../../../../../../components/ui/chart";
 
 interface IChartPieProps {
   title: string;

@@ -1,6 +1,7 @@
-import type { ICourses } from "../../../../static/CoursesData";
-import { Card, CardContent } from "../../../ui/card";
-import { Separator } from "../../../ui/separator";
+import { Card, CardContent } from "../../../../../../components/ui/card";
+import { Separator } from "../../../../../../components/ui/separator";
+
+import type { ICourses } from "../../../../../../static/CoursesData";
 
 interface IGeneralInfoProps {
   data: ICourses;

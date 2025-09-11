@@ -1,8 +1,8 @@
+import { Card, CardContent } from "../../../../../../components/ui/card";
 import { ListHeader } from "./ListHeader";
 import { ListItem } from "./ListItem";
 
-import type { ICourses } from "../../../../static/CoursesData";
-import { Card, CardContent } from "../../../ui/card";
+import type { ICourses } from "../../../../../../static/CoursesData";
 
 interface IListProps {
   data: ICourses;
