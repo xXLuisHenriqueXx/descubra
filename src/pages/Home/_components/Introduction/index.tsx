@@ -1,3 +1,5 @@
+import { tv } from "tailwind-variants";
+
 import { Info } from "./_components/Info";
 import { ChartPie } from "./_components/ChartPie";
 import { Map } from "./_components/Map";
@@ -5,6 +7,10 @@ import { ChartBar } from "./_components/ChartBar";
 
 import type { ChartConfig } from "../../../../components/ui/chart";
 import { ExtraInfoData } from "../../../../static/ExtraInfoData";
+
+const containerMain = tv({
+  base: "flex flex-col gap-y-8 w-full px-4",
+});
 
 export const Introduction = () => {
   const chartDataJobsIncrease = [
@@ -123,7 +129,7 @@ export const Introduction = () => {
   } satisfies ChartConfig;
 
   return (
-    <section className="flex flex-col gap-y-8 w-full px-4">
+    <section className={containerMain()}>
       <Info
         name={ExtraInfoData.city.name}
         subname={ExtraInfoData.city.state}

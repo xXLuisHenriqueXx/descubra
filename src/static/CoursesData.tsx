@@ -204,7 +204,7 @@ interface IChallenge {
 }
 
 export interface ICourses {
-  id: string;
+  id: "process" | "ecosystem" | "energy" | "project" | "tech";
   title: string;
   introduction: string;
   service: string;

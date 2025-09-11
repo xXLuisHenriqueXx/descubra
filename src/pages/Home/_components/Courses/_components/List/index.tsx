@@ -1,8 +1,20 @@
+import { tv } from "tailwind-variants";
+
 import { Card, CardContent } from "../../../../../../components/ui/card";
 import { ListHeader } from "./ListHeader";
 import { ListItem } from "./ListItem";
 
 import type { ICourses } from "../../../../../../static/CoursesData";
+
+const listStyles = tv({
+  slots: {
+    containerMain: "flex flex-col gap-y-2 w-full",
+    containerCard: "relative w-full",
+    containerContent: "flex flex-col gap-y-4 w-full",
+  },
+});
+
+const { containerMain, containerCard, containerContent } = listStyles();
 
 interface IListProps {
   data: ICourses;
@@ -11,34 +23,22 @@ interface IListProps {
 }
 
 export const List = ({ data, visible, toggleVisibility }: IListProps) => {
-  const colors: Record<string, string> = {
-    process: "bg-process/10",
-    ecosystem: "bg-ecosystem/10",
-    energy: "bg-energy/10",
-    project: "bg-project/10",
-    tech: "bg-tech/10",
-  };
-
   return (
-    <div className="flex flex-col gap-y-2 w-full">
+    <div className={containerMain()}>
       {data.courses.map((course) => {
         const isOpen = visible[course.id];
 
         return (
-          <Card key={course.id} className="relative w-full">
-            <CardContent className="flex flex-col gap-y-4">
+          <Card key={course.id} className={containerCard()}>
+            <CardContent className={containerContent()}>
               <ListHeader
-                data={data}
+                id={data.id}
                 course={course}
                 isOpen={isOpen}
                 toggleVisibility={toggleVisibility}
               />
 
-              <ListItem
-                color={colors[data.color]}
-                course={course}
-                isOpen={isOpen}
-              />
+              <ListItem id={data.id} course={course} isOpen={isOpen} />
             </CardContent>
           </Card>
         );

@@ -6,12 +6,17 @@ import {
   Rectangle,
   XAxis,
 } from "recharts";
+import { tv } from "tailwind-variants";
 
 import { Card, CardContent } from "../../../../../../components/ui/card";
 import {
   ChartContainer,
   type ChartConfig,
 } from "../../../../../../components/ui/chart";
+
+const titleStyle = tv({
+  base: "text-xs font-semibold text-foreground/95 text-center",
+});
 
 interface IChartBarProps {
   title: string;
@@ -39,9 +44,7 @@ export const ChartBar = ({
   return (
     <Card>
       <CardContent>
-        <h2 className="text-xs font-semibold text-foreground/95 text-center">
-          {title}
-        </h2>
+        <h2 className={titleStyle()}>{title}</h2>
 
         <ChartContainer config={config}>
           <BarChart accessibilityLayer data={data} margin={{ top: 20 }}>

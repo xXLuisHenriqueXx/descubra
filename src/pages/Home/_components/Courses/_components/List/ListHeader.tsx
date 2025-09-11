@@ -1,39 +1,77 @@
+import { tv } from "tailwind-variants";
 import { ChevronDown, ChevronUp, GraduationCap } from "lucide-react";
 
-import type { ICourse, ICourses } from "../../../../../../static/CoursesData";
+import type { ICourse } from "../../../../../../static/CoursesData";
+
+const listHeaderStyles = tv({
+  slots: {
+    containerMain: "flex flex-row items-center gap-x-4",
+    title: "text-xs font-medium pr-6",
+    icon: "w-4 h-4",
+  },
+  variants: {
+    color: {
+      process: {
+        title: "text-process",
+        icon: "text-process",
+      },
+      ecosystem: {
+        title: "text-ecosystem",
+        icon: "text-ecosystem",
+      },
+      energy: {
+        title: "text-energy",
+        icon: "text-energy",
+      },
+      project: {
+        title: "text-project",
+        icon: "text-project",
+      },
+      tech: {
+        title: "text-tech",
+        icon: "text-tech",
+      },
+    },
+    absolute: {
+      true: {
+        icon: "absolute right-4",
+      },
+    },
+  },
+});
+
+const { containerMain, title, icon } = listHeaderStyles();
 
 interface IListHeaderProps {
-  data: ICourses;
+  id: "process" | "ecosystem" | "energy" | "project" | "tech";
   course: ICourse;
   isOpen: boolean;
   toggleVisibility: (id: string) => void;
 }
 
 export const ListHeader = ({
-  data,
+  id,
   course,
   isOpen,
   toggleVisibility,
 }: IListHeaderProps) => {
   return (
     <div
-      className="flex flex-row items-center gap-x-4"
+      className={containerMain()}
       onClick={() => toggleVisibility(course.id)}
     >
-      <GraduationCap className={`w-4 h-4 text-${data.color}`} strokeWidth={2} />
+      <GraduationCap className={icon({ color: id })} strokeWidth={2} />
 
-      <h2 className={`text-xs font-medium text-${data.color} pr-6`}>
-        {course.title}
-      </h2>
+      <h2 className={title({ color: id })}>{course.title}</h2>
 
       {isOpen ? (
         <ChevronUp
-          className={` absolute right-4 w-4 h-4 text-${data.color}`}
+          className={icon({ color: id, absolute: true })}
           strokeWidth={2}
         />
       ) : (
         <ChevronDown
-          className={` absolute right-4 w-4 h-4 text-${data.color}`}
+          className={icon({ color: id, absolute: true })}
           strokeWidth={2}
         />
       )}

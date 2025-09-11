@@ -1,4 +1,28 @@
+import { tv } from "tailwind-variants";
+
 import { Card, CardContent } from "../../../../../../components/ui/card";
+
+const infoStyles = tv({
+  slots: {
+    containerMain: "flex flex-col gap-y-2",
+    containerTitle: "flex flex-row items-end gap-x-1",
+    title: "text-sm font-medium text-foreground",
+    titleHighlight: "text-lg text-primary",
+    subtitle: "text-xs font-semibold text-primary/75",
+    textNormal: "text-xs/relaxed font-regular text-foreground/75 indent-4",
+    textList: "text-xs/relaxed font-regular text-foreground",
+  },
+});
+
+const {
+  containerMain,
+  containerTitle,
+  title,
+  titleHighlight,
+  subtitle,
+  textNormal,
+  textList,
+} = infoStyles();
 
 interface IInfoProps {
   name: string;
@@ -9,26 +33,21 @@ interface IInfoProps {
 
 export const Info = ({ name, subname, text, topics }: IInfoProps) => {
   return (
-    <article className="flex flex-col gap-y-2">
-      <div className="flex flex-row items-end gap-x-1">
-        <h1 className="text-sm font-medium text-foreground">
-          Sobre <strong className="text-lg text-primary">{name}</strong>
+    <article className={containerMain()}>
+      <div className={containerTitle()}>
+        <h1 className={title()}>
+          Sobre <strong className={titleHighlight()}>{name}</strong>
         </h1>
-        <p className="text-xs font-semibold text-primary/75">{subname}</p>
+        <p className={subtitle()}>{subname}</p>
       </div>
 
-      <p className="text-xs/relaxed font-regular text-foreground/75 indent-4">
-        {text}
-      </p>
+      <p className={textNormal()}>{text}</p>
 
       {topics && topics.length > 0 && (
         <Card>
-          <CardContent className="flex flex-col gap-y-2">
+          <CardContent className={containerMain()}>
             {topics.map((info) => (
-              <p
-                key={info}
-                className="text-xs/relaxed font-regular text-foreground"
-              >
+              <p key={info} className={textList()}>
                 - {info};
               </p>
             ))}

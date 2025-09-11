@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { tv } from "tailwind-variants";
 
 import { Header } from "./_components/Header";
 import { GeneralInfo } from "./_components/GeneralInfo";
@@ -7,6 +8,15 @@ import { List } from "./_components/List";
 import { CoursesData } from "../../../../static/CoursesData";
 import { Card, CardContent } from "../../../../components/ui/card";
 
+const coursesStyles = tv({
+  slots: {
+    containerMain: "flex flex-col items-center px-4",
+    text: "text-center text-sm text-foreground/75",
+  },
+});
+
+const { containerMain, text } = coursesStyles();
+
 interface ICoursesProps {
   activeFilter: string;
   search: string;
@@ -14,14 +24,6 @@ interface ICoursesProps {
 
 export const Courses = ({ activeFilter, search }: ICoursesProps) => {
   const [visible, setVisible] = useState<Record<string, boolean>>({});
-
-  const gradients: Record<string, string> = {
-    process: "from-process/20 to-process/80",
-    ecosystem: "from-ecosystem/20 to-ecosystem/80",
-    energy: "from-energy/20 to-energy/80",
-    project: "from-project/20 to-project/80",
-    tech: "from-tech/20 to-tech/80",
-  };
 
   const toggleVisibility = (id: string) => {
     setVisible((prev) => ({
@@ -54,12 +56,8 @@ export const Courses = ({ activeFilter, search }: ICoursesProps) => {
     <>
       {filteredSections.length > 0 ? (
         filteredSections.map((section) => (
-          <section
-            key={section.id}
-            id={section.id}
-            className="flex flex-col items-center px-4"
-          >
-            <Header data={section} gradients={gradients} />
+          <section key={section.id} id={section.id} className={containerMain()}>
+            <Header data={section} />
 
             <GeneralInfo data={section} />
 
@@ -71,12 +69,10 @@ export const Courses = ({ activeFilter, search }: ICoursesProps) => {
           </section>
         ))
       ) : (
-        <section className="flex flex-col items-center px-4">
+        <section className={containerMain()}>
           <Card className="w-full">
             <CardContent>
-              <p className="text-center text-sm text-foreground/75">
-                Nenhum curso encontrado
-              </p>
+              <p className={text()}>Nenhum curso encontrado</p>
             </CardContent>
           </Card>
         </section>

@@ -1,5 +1,6 @@
 import { Label, Pie, PieChart, Sector } from "recharts";
 import type { PieSectorDataItem } from "recharts/types/polar/Pie";
+import { tv } from "tailwind-variants";
 
 import { Card, CardContent } from "../../../../../../components/ui/card";
 import {
@@ -8,6 +9,16 @@ import {
   ChartLegendContent,
   type ChartConfig,
 } from "../../../../../../components/ui/chart";
+
+const chartPieStyles = tv({
+  slots: {
+    titleNormal: "text-xs font-semibold text-foreground/95 text-center",
+    textNormal: "fill-foreground text-lg font-bold",
+    chart: "mx-auto aspect-square max-h-[250px]",
+  },
+});
+
+const { titleNormal, textNormal, chart } = chartPieStyles();
 
 interface IChartPieProps {
   title: string;
@@ -29,14 +40,9 @@ export const ChartPie = ({
   return (
     <Card>
       <CardContent>
-        <h2 className="text-xs font-semibold text-foreground/95 text-center">
-          {title}
-        </h2>
+        <h2 className={titleNormal()}>{title}</h2>
 
-        <ChartContainer
-          config={config}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+        <ChartContainer config={config} className={chart()}>
           <PieChart>
             <Pie
               data={data}
@@ -65,7 +71,7 @@ export const ChartPie = ({
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-lg font-bold"
+                          className={textNormal()}
                         >
                           {text}
                         </tspan>
