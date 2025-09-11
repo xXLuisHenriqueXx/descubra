@@ -1,12 +1,20 @@
-import { useState } from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Input } from "../../../../components/ui/input";
 import { Separator } from "../../../../components/ui/separator";
 
-export const HeaderFilter = () => {
-  const [activeFilter, setActiveFilter] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
+interface IHeaderFilterProps {
+  activeFilter: string;
+  setActiveFilter: (filter: string) => void;
+  search: string;
+  setSearch: (search: string) => void;
+}
 
+export const HeaderFilter = ({
+  activeFilter,
+  setActiveFilter,
+  search,
+  setSearch,
+}: IHeaderFilterProps) => {
   return (
     <section className="w-full px-4">
       <Card>
@@ -33,40 +41,28 @@ export const HeaderFilter = () => {
             </h2>
 
             <div className="flex flex-col items-center gap-y-2 w-full">
-              <p
-                className="w-full px-4 py-2 bg-process/5 hover:bg-process/10 border border-process/95 rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-process text-center"
-                onClick={() => setActiveFilter("process")}
-              >
-                Processos e Produtividade
-              </p>
-
-              <p
-                className="w-full px-4 py-2 bg-ecosystem/5 hover:bg-ecosystem/10 border border-ecosystem/95 rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-ecosystem text-center"
-                onClick={() => setActiveFilter("ecosystem")}
-              >
-                Ambientes e Ecossistemas
-              </p>
-
-              <p
-                className="w-full px-4 py-2 bg-energy/5 hover:bg-energy/10 border border-energy/95 rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-energy text-center"
-                onClick={() => setActiveFilter("energy")}
-              >
-                Energia e Comunicação
-              </p>
-
-              <p
-                className="w-full px-4 py-2 bg-project/5 hover:bg-project/10 border border-project/95 rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-project text-center"
-                onClick={() => setActiveFilter("project")}
-              >
-                Projeto e Fabricação
-              </p>
-
-              <p
-                className="w-full px-4 py-2 bg-tech/5 hover:bg-tech/10 border border-tech/95 rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-tech text-center"
-                onClick={() => setActiveFilter("tech")}
-              >
-                Tecnologia da Informação
-              </p>
+              {[
+                { id: "process", label: "Processos e Produtividade" },
+                { id: "ecosystem", label: "Ambientes e Ecossistemas" },
+                { id: "energy", label: "Energia e Comunicação" },
+                { id: "project", label: "Projeto e Fabricação" },
+                { id: "tech", label: "Tecnologia da Informação" },
+              ].map((cat) => (
+                <p
+                  key={cat.id}
+                  className={`w-full px-4 py-2 border rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-center
+                    ${
+                      activeFilter === cat.id
+                        ? `bg-${cat.id}/20 border-${cat.id}/95 text-${cat.id}`
+                        : `bg-${cat.id}/5 hover:bg-${cat.id}/10 border-${cat.id}/95 text-${cat.id}`
+                    }`}
+                  onClick={() =>
+                    setActiveFilter(activeFilter === cat.id ? "" : cat.id)
+                  }
+                >
+                  {cat.label}
+                </p>
+              ))}
             </div>
           </div>
         </CardContent>

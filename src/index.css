@@ -36,6 +36,24 @@
 
   /* FONTS */
   --font-inter: "Inter", sans-serif;
+
+  /* ANIMATIONS */
+  --animate-pulse-shape: pulse-shape 2s linear infinite;
+
+  @keyframes pulse-shape {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    70% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
 }
 
 :root {
