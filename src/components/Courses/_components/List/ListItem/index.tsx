@@ -20,49 +20,23 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
           transition={{ duration: 0.1 }}
           className="flex flex-col gap-y-4 w-full"
         >
-          <Separator />
-
-          <p className="text-xs font-normal text-foreground indent-4">
-            {course.description}
-          </p>
-
-          <Separator />
-
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+          <div className="flex flex-row items-center gap-x-2">
             <div
-              className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
+              className={`flex flex-1 flex-col items-center justify-center h-32 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-foreground">Duração</h3>
-              <p className="text-xs font-medium text-foreground/75 text-center">
+              <h3 className="text-4xl font-bold text-foreground">
                 {course.duration}
+              </h3>
+
+              <p className="text-sm font-medium text-foreground text-center">
+                SEMESTRES
               </p>
             </div>
 
             <div
-              className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
+              className={`flex flex-1 items-center justify-center h-32 ${color} rounded-lg shadow-sm shadow-black/5`}
             >
-              <h3 className="text-sm font-bold text-foreground">DCG</h3>
-              <p className="text-xs font-medium text-foreground/75 text-center">
-                {course.dcg}
-              </p>
-            </div>
-
-            <div
-              className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
-            >
-              <h3 className="text-sm font-bold text-foreground">ACG</h3>
-              <p className="text-xs font-medium text-foreground/75 text-center">
-                {course.acg}
-              </p>
-            </div>
-
-            <div
-              className={`flex flex-col items-center justify-center gap-y-2 p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
-            >
-              <h3 className="text-sm font-bold text-foreground">Extensão</h3>
-              <p className="text-xs font-medium text-foreground/75 text-center">
-                {course.extension}
-              </p>
+              {course.reputation}
             </div>
           </div>
 
@@ -77,15 +51,9 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
               {course.affinities.map((affinity) => (
                 <div
                   key={affinity.id}
-                  className="flex flex-row items-center gap-x-2 py-2 px-4 bg-foreground/10 shadow-sm shadow-black/5 rounded-lg"
+                  className="flex flex-1 flex-row items-center justify-center p-4 bg-foreground/10 rounded-lg shadow-sm shadow-black/5"
                 >
-                  <affinity.Icon
-                    className="w-4 h-4 text-foreground"
-                    strokeWidth={2}
-                  />
-                  <p className="text-xs font-normal text-foreground">
-                    {affinity.title}
-                  </p>
+                  {affinity.children}
                 </div>
               ))}
             </div>
@@ -98,14 +66,16 @@ export const ListItem = ({ color, course, isOpen }: IListItemProps) => {
               Atuações
             </h2>
 
-            {course.actions.map((action) => (
-              <p
-                key={action}
-                className={`py-2 px-4 ${color} shadow-sm shadow-black/5 rounded-lg text-xs font-normal text-foreground`}
-              >
-                {action}
-              </p>
-            ))}
+            <div className="flex flex-row flex-wrap gap-2">
+              {course.actions.map((action) => (
+                <div
+                  key={action.id}
+                  className={`flex flex-1 flex-row items-center justify-center p-4 ${color} rounded-lg shadow-sm shadow-black/5`}
+                >
+                  {action.children}
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       )}

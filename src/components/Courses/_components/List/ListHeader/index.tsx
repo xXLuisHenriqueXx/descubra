@@ -28,12 +28,12 @@ export const ListHeader = ({
 
       {isOpen ? (
         <ChevronUp
-          className={` absolute right-4 w-6 h-6 text-${data.color}`}
+          className={` absolute right-4 w-4 h-4 text-${data.color}`}
           strokeWidth={2}
         />
       ) : (
         <ChevronDown
-          className={` absolute right-4 w-6 h-6 text-${data.color}`}
+          className={` absolute right-4 w-4 h-4 text-${data.color}`}
           strokeWidth={2}
         />
       )}
