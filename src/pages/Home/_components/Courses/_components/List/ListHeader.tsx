@@ -6,8 +6,8 @@ import type { ICourse } from "../../../../../../static/CoursesData";
 const listHeaderStyles = tv({
   slots: {
     containerMain: "flex flex-row items-center gap-x-4",
-    title: "text-xs font-medium pr-6",
-    icon: "w-4 h-4",
+    title: "text-xs lg:text-base font-medium",
+    icon: "w-6 h-6",
   },
   variants: {
     color: {

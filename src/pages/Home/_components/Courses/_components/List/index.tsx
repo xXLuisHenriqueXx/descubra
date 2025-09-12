@@ -8,8 +8,8 @@ import type { ICourses } from "../../../../../../static/CoursesData";
 
 const listStyles = tv({
   slots: {
-    containerMain: "flex flex-col gap-y-2 w-full",
-    containerCard: "relative w-full",
+    containerMain: "flex flex-col gap-y-2 lg:gap-y-4 w-full",
+    containerCard: "relative w-full lg:py-4",
     containerContent: "flex flex-col gap-y-4 w-full",
   },
 });

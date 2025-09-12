@@ -7,15 +7,16 @@ import type { ICourse } from "../../../../../../static/CoursesData";
 
 const listItemStyles = tv({
   slots: {
-    containerMain: "flex flex-col gap-y-4 w-full",
-    containerGeneral: "flex flex-row items-center gap-x-2",
+    containerMain: "flex flex-col gap-y-4 lg:gap-y-8 w-full",
+    containerGeneral: "flex flex-row items-center gap-x-2 lg:gap-x-4",
     containerGeneralItem:
-      "flex flex-1 flex-col items-center justify-center aspect-square h-32 bg-foreground/10 rounded-lg shadow-sm shadow-black/5",
+      "flex flex-col items-center justify-center w-full min-h-32 bg-foreground/10 rounded-lg shadow-sm shadow-black/5",
     containerData: "flex flex-col gap-y-2 w-full",
-    containerItems: "flex flex-row flex-wrap gap-2",
-    title: "text-sm font-semibold text-foreground/95",
+    containerItems: "grid grid-cols-2 md:grid-cols-5 gap-2 lg:gap-4",
+    title: "text-sm lg:text-base font-semibold text-foreground/95",
     titleSemester: "text-4xl font-bold text-foreground",
-    textSemester: "text-sm font-medium text-foreground text-center",
+    textSemester:
+      "text-sm lg:text-base font-medium text-foreground text-center",
   },
   variants: {
     color: {

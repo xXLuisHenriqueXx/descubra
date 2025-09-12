@@ -5,8 +5,8 @@ import type { ICourses } from "../../../../../../static/CoursesData";
 const headerStyles = tv({
   slots: {
     containerMain:
-      "flex flex-row items-center gap-x-4 w-full p-4 bg-gradient-to-r rounded-xl",
-    text: "text-base font-bold text-foreground",
+      "flex flex-row items-center gap-x-4 w-full p-4 lg:px-8 bg-gradient-to-r rounded-xl",
+    text: "text-base lg:text-lg font-bold text-foreground uppercase",
     icon: "w-6 h-6 text-foreground",
   },
   variants: {

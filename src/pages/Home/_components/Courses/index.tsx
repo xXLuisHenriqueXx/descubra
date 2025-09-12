@@ -10,8 +10,9 @@ import { Card, CardContent } from "../../../../components/ui/card";
 
 const coursesStyles = tv({
   slots: {
-    containerMain: "flex flex-col items-center px-4",
-    text: "text-center text-sm text-foreground/75",
+    containerMain:
+      "flex flex-col items-center px-4 lg:px-8 xl:max-w-[70%] xl:self-center",
+    text: "text-center text-sm lg:text-base text-foreground/75",
   },
 });
 

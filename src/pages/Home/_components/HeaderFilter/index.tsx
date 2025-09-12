@@ -8,14 +8,14 @@ import { filterButtonsData } from "../../../../static/FilterButtonsData";
 
 const headerFilterStyles = tv({
   slots: {
-    containerMain: "w-full px-4",
+    containerMain: "w-full lg:max-w-[70%] px-4 lg:px-8 self-center",
     containerCard: "flex flex-col gap-y-8",
     containerContent: "flex flex-col gap-y-2",
     containerButtons: "flex flex-col items-center gap-y-2 w-full",
-    title: "text-sm font-semibold text-foreground/95",
-    input: "text-xs font-regular text-foreground",
+    title: "text-sm lg:text-base font-semibold text-foreground/95",
+    input: "text-xs lg:text-sm font-regular text-foreground",
     button:
-      "w-full px-4 py-2 border rounded-lg cursor-pointer transition-all duration-300 text-sm font-regular text-center",
+      "w-full px-4 py-2 border rounded-lg cursor-pointer transition-all duration-300 text-sm lg:text-base font-regular text-center",
   },
   variants: {
     color: {

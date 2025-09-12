@@ -8,9 +8,15 @@ import { ChartBar } from "./_components/ChartBar";
 import type { ChartConfig } from "../../../../components/ui/chart";
 import { ExtraInfoData } from "../../../../static/ExtraInfoData";
 
-const containerMain = tv({
-  base: "flex flex-col gap-y-8 w-full px-4",
+const introductionStyles = tv({
+  slots: {
+    containerMain:
+      "flex flex-col gap-y-8 w-full px-4 lg:px-8 xl:max-w-[70%] xl:self-center",
+    containerGrid: "grid grid-cols-1 md:grid-cols-2 gap-4 xl:gap-8",
+  },
 });
+
+const { containerMain, containerGrid } = introductionStyles();
 
 export const Introduction = () => {
   const chartDataJobsIncrease = [
@@ -130,70 +136,71 @@ export const Introduction = () => {
 
   return (
     <section className={containerMain()}>
-      <Info
-        name={ExtraInfoData.city.name}
-        subname={ExtraInfoData.city.state}
-        text={ExtraInfoData.city.paragraph}
-      />
+      <div className={containerGrid()}>
+        <Info
+          name={ExtraInfoData.city.name}
+          subname={ExtraInfoData.city.state}
+          text={ExtraInfoData.city.paragraph}
+        />
 
-      <Map />
+        <Map />
 
-      <Info
-        name={ExtraInfoData.college.name}
-        text={ExtraInfoData.college.paragraph}
-        topics={ExtraInfoData.college.extraInfos}
-      />
+        <Info
+          name={ExtraInfoData.college.name}
+          text={ExtraInfoData.college.paragraph}
+        />
 
-      <Info
-        name={ExtraInfoData.ct.name}
-        subname={ExtraInfoData.ct.prefix}
-        text={ExtraInfoData.ct.paragraph}
-      />
+        <Info
+          name={ExtraInfoData.ct.name}
+          subname={ExtraInfoData.ct.prefix}
+          text={ExtraInfoData.ct.paragraph}
+        />
 
-      <ChartBar
-        title="Aumento de vagas em 10 anos"
-        type="percentage"
-        data={chartDataJobsIncrease}
-        dataKey="value"
-        nameKey="name"
-        config={chartConfigJobsIncrease}
-      />
+        <ChartBar
+          title="Aumento de vagas em 10 anos"
+          type="percentage"
+          data={chartDataJobsIncrease}
+          dataKey="value"
+          nameKey="name"
+          config={chartConfigJobsIncrease}
+        />
 
-      <ChartPie
-        title="Empregabilidade até 6 meses após formar"
-        text="53,5%"
-        data={chartDataJobs6Months}
-        dataKey="value"
-        nameKey="name"
-        config={chartConfigJobs6Months}
-      />
+        <ChartPie
+          title="Empregabilidade até 6 meses após formar"
+          text="53,5%"
+          data={chartDataJobs6Months}
+          dataKey="value"
+          nameKey="name"
+          config={chartConfigJobs6Months}
+        />
 
-      <ChartBar
-        title="Salário Médio Anual (2023)"
-        type="money"
-        data={chartDataSalary}
-        dataKey="value"
-        nameKey="name"
-        config={chartConfigSalary}
-      />
+        <ChartBar
+          title="Salário Médio Anual (2023)"
+          type="money"
+          data={chartDataSalary}
+          dataKey="value"
+          nameKey="name"
+          config={chartConfigSalary}
+        />
 
-      <ChartPie
-        title="Oportunidade de Carreira Internacional"
-        text="61,9%"
-        data={chartDataInternationalCareer}
-        dataKey="value"
-        nameKey="name"
-        config={chartConfigInternationalCareer}
-      />
+        <ChartPie
+          title="Oportunidade de Carreira Internacional"
+          text="61,9%"
+          data={chartDataInternationalCareer}
+          dataKey="value"
+          nameKey="name"
+          config={chartConfigInternationalCareer}
+        />
 
-      <ChartBar
-        title="Oportunidade de promoção em até 3 anos"
-        type="percentage"
-        data={chartDataPromotion3Years}
-        dataKey="value"
-        nameKey="name"
-        config={chartConfigPromotion3Years}
-      />
+        <ChartBar
+          title="Oportunidade de promoção em até 3 anos"
+          type="percentage"
+          data={chartDataPromotion3Years}
+          dataKey="value"
+          nameKey="name"
+          config={chartConfigPromotion3Years}
+        />
+      </div>
     </section>
   );
 };

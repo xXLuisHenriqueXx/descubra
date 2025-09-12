@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Menu, Moon, Sun, X } from "lucide-react";
 import { tv } from "tailwind-variants";
+import { Moon, Sun } from "lucide-react";
 
-import { Modal } from "./_components/Modal";
 import { Button } from "../../../../components/ui/button";
 
 import LogoCTLight from "@assets/logo_ct_light.png";
@@ -11,17 +10,15 @@ import LogoCTDark from "@assets/logo_ct_dark.png";
 const navbarStyles = tv({
   slots: {
     containerMain:
-      "fixed top-0 left-0 right-0 flex flex-row items-center justify-between p-4 z-50",
-    containerLogo: "flex flex-row items-center gap-x-4",
-    logo: "w-12 h-6",
-    button: "size-8 cursor-pointer",
+      "fixed top-0 left-0 right-0 flex flex-row items-center justify-between p-4 lg:px-8 xl:px-12 z-50",
+    logo: "w-12 lg:w-16 h-6 lg:h-8",
+    button: "size-8 lg:size-10 cursor-pointer",
   },
 });
 
-const { containerMain, containerLogo, logo, button } = navbarStyles();
+const { containerMain, logo, button } = navbarStyles();
 
 export const Navbar = () => {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState(() =>
     document.documentElement.classList.contains("dark")
   );
@@ -36,23 +33,11 @@ export const Navbar = () => {
 
   return (
     <header className={containerMain()}>
-      <div className={containerLogo()}>
-        <Button
-          variant={"outline"}
-          size="icon"
-          className={button()}
-          onClick={() => setShowMenu(!showMenu)}
-        >
-          {showMenu ? <X /> : <Menu />}
-        </Button>
-        <img
-          className={logo()}
-          src={darkMode ? LogoCTLight : LogoCTDark}
-          alt="Logo CT"
-        />
-      </div>
-
-      <Modal showMenu={showMenu} />
+      <img
+        className={logo()}
+        src={darkMode ? LogoCTLight : LogoCTDark}
+        alt="Logo CT"
+      />
 
       <Button
         variant={"outline"}
