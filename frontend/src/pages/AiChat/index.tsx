@@ -38,64 +38,65 @@ const AiChat = () => {
   }, [messages]);
 
   // Inicialização do chat
-  // useEffect(() => {
-  //   let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  //   const initChat = async () => {
-  //     try {
-  //       var authResponse = await AiChatService.authToken();
-  //       authResponse = await AiChatService.authToken();
-  //       const status: SessionStatus =
-  //         authResponse.session_data.status || "idle";
+    const initChat = async () => {
+      try {
+        var authResponse = await AiChatService.authToken();
+        authResponse = await AiChatService.authToken();
+        const status: SessionStatus =
+          authResponse.session_data.status || "idle";
 
-  //       if (!isMounted) return;
+        if (!isMounted) return;
 
-  //       const welcome: Message = {
-  //         id: "welcome",
-  //         text: "**Olá!** Me chamo Eduardo e sou seu assistente virtual! Estou aqui para responder suas dúvidas a respeito dos cursos do **Centro de Tecnologia**! Lembre-se: *sou um assistente virtual e posso cometer erros*. Sempre verifique as informações que eu fornecer com um professor!.",
-  //         type: "received",
-  //       };
+        const welcome: Message = {
+          id: "welcome",
+          text: "**Olá!** Me chamo Eduardo e sou seu assistente virtual! Estou aqui para responder suas dúvidas a respeito dos cursos do **Centro de Tecnologia**! Lembre-se: *sou um assistente virtual e posso cometer erros*. Sempre verifique as informações que eu fornecer com um professor!.",
+          type: "received",
+        };
 
-  //       const historyResponse = await AiChatService.fetchHistoryAPI();
-  //       const history: Message[] =
-  //         historyResponse.history?.map((msg: any) => ({
-  //           id: msg.timestamp,
-  //           text: msg.conteudo,
-  //           type: msg.role === "assistant" ? "received" : "sent",
-  //         })) || [];
+        const historyResponse = await AiChatService.fetchHistoryAPI();
+        const history: Message[] =
+          historyResponse.history?.map((msg: any) => ({
+            id: msg.timestamp,
+            text: msg.conteudo,
+            type: msg.role === "assistant" ? "received" : "sent",
+          })) || [];
 
-  //       let initialMessages = [welcome, ...history];
-  //       if (
-  //         status === "processing" &&
-  //         !initialMessages.some((msg) => msg.placeholder)
-  //       ) {
-  //         initialMessages.push({
-  //           id: "placeholder",
-  //           text: "...",
-  //           type: "received",
-  //           placeholder: true,
-  //         });
-  //         startPolling();
-  //       }
-  //       setMessages(initialMessages);
-  //     } catch (error) {
-  //       setMessages([
-  //         {
-  //           id: "error",
-  //           text: "Erro ao inicializar o chat. Tente novamente mais tarde.",
-  //           type: "received",
-  //         },
-  //       ]);
-  //     }
-  //   };
+        let initialMessages = [welcome, ...history];
+        if (
+          status === "processing" &&
+          !initialMessages.some((msg) => msg.placeholder)
+        ) {
+          initialMessages.push({
+            id: "placeholder",
+            text: "...",
+            type: "received",
+            placeholder: true,
+          });
+          startPolling();
+        }
+        setMessages(initialMessages);
+      } catch (error) {
+        console.log(error)
+        setMessages([
+          {
+            id: "error",
+            text: "Erro ao inicializar o chat. Tente novamente mais tarde.",
+            type: "received",
+          },
+        ]);
+      }
+    };
 
-  //   initChat();
+    initChat();
 
-  //   return () => {
-  //     isMounted = false;
-  //     stopPolling();
-  //   };
-  // }, []);
+    return () => {
+      isMounted = false;
+      stopPolling();
+    };
+  }, []);
 
   // Polling para resposta do bot
   const startPolling = useCallback(() => {
@@ -110,10 +111,10 @@ const AiChat = () => {
             prev.map((msg) =>
               msg.placeholder
                 ? {
-                    id: Date.now(),
-                    text: latestReponse.conteudo,
-                    type: "received",
-                  }
+                  id: Date.now(),
+                  text: latestReponse.conteudo,
+                  type: "received",
+                }
                 : msg
             )
           );
@@ -169,24 +170,9 @@ const AiChat = () => {
   return (
     <Container>
       <article className={containerMain()}>
-        <ChatBubble
-          key={"1"}
-          type={"received"}
-          text={
-            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus nam dolorem delectus aspernatur fugiat. Sequi nemo doloribus quos consequatur corporis sunt quibusdam deleniti, omnis et distinctio quo numquam blanditiis ullam."
-          }
-        />
-        <ChatBubble
-          key={"1"}
-          type={"sent"}
-          text={
-            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus nam dolorem delectus aspernatur fugiat. Sequi nemo doloribus quos consequatur corporis sunt quibusdam deleniti, omnis et distinctio quo numquam blanditiis ullam."
-          }
-        />
-
-        {/* {messages.map((msg) => (
+        {messages.map((msg) => (
           <ChatBubble key={msg.id} type={msg.type} text={msg.text} />
-        ))} */}
+        ))}
         <div ref={messagesEndRef} />
       </article>
 
