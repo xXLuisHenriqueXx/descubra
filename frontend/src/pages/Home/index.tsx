@@ -6,6 +6,7 @@ import { HeaderFilter } from "./_components/HeaderFilter";
 import { Courses } from "./_components/Courses";
 import { Introduction } from "./_components/Introduction";
 import { Separator } from "../../components/ui/separator";
+import AiButton from "./_components/AiButton";
 
 const containerMain = tv({
   base: "flex flex-col gap-y-8 min-w-full min-h-screen py-20 font-inter",
@@ -31,6 +32,8 @@ const Home = () => {
       <Courses activeFilter={activeFilter} search={search} />
 
       <Introduction />
+
+      <AiButton />
     </main>
   );
 };

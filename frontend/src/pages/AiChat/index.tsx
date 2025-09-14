@@ -5,6 +5,7 @@ import { AiChatService } from "../../services/aiChatService";
 import ChatInput from "./_components/ChatInput";
 import Container from "./_components/Container";
 import ChatBubble from "./_components/ChatBubble";
+import BackButton from "./_components/BackButton";
 
 const AiChatStyles = tv({
   slots: {
@@ -79,7 +80,7 @@ const AiChat = () => {
         }
         setMessages(initialMessages);
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setMessages([
           {
             id: "error",
@@ -111,10 +112,10 @@ const AiChat = () => {
             prev.map((msg) =>
               msg.placeholder
                 ? {
-                  id: Date.now(),
-                  text: latestReponse.conteudo,
-                  type: "received",
-                }
+                    id: Date.now(),
+                    text: latestReponse.conteudo,
+                    type: "received",
+                  }
                 : msg
             )
           );
@@ -169,6 +170,8 @@ const AiChat = () => {
 
   return (
     <Container>
+      <BackButton />
+
       <article className={containerMain()}>
         {messages.map((msg) => (
           <ChatBubble key={msg.id} type={msg.type} text={msg.text} />
