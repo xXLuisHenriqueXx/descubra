@@ -13,6 +13,8 @@ export const AdminService = {
   health: async () => {
     const response = await API.get("/admin/health");
 
+    console.log(response);
+
     return response.data;
   },
 
