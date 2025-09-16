@@ -10,6 +10,12 @@ from api.models.chat_model import Chat
 from datetime import timedelta
 from django.utils import timezone
 
+import json
+import os
+from django.conf import settings
+
+from api.services.log_service import LogHelper
+
 assistants_path = os.path.join(os.path.dirname(
     __file__), '../static/assistants.json')
 with open(assistants_path, 'r') as f:
@@ -48,6 +54,17 @@ def _count_words(session: UserSession) -> int:
 
 
 def _check_rate_limit(session: UserSession):
+    config_path = os.path.join(settings.BASE_DIR, "api" ,"static", "config.json")
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        if not config.get("ai_chat_active", True):
+            raise Exception("O chat de IA está temporariamente desativado.")
+    except FileNotFoundError:
+        raise Exception("Configuração do sistema não encontrada (config.json ausente).")
+    except json.JSONDecodeError:
+        raise Exception("Erro ao ler configuração do sistema (config.json inválido).")
+
     total_messages = Chat.objects.filter(
         session=session, role=Chat.ROLE_USER).count()
     if total_messages >= MAX_TOTAL_MESSAGES:
@@ -174,6 +191,9 @@ def send_message(user_id: int, message: str) -> None:
         session = UserSession.objects.get(id=user_id)
     except UserSession.DoesNotExist:
         raise Exception("Sessão não encontrada.")
+    
+    if not session.active:
+        raise Exception("Usuário inativo! Não é permitido enviar mais mensagens!")
 
     if Chat.objects.filter(session=session, role=Chat.ROLE_ASSISTANT, processado=False).exists() or session.status == UserSession.STATUS_PROCESSING:
         raise Exception(

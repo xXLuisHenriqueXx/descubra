@@ -9,6 +9,9 @@ from api.models.session_models import UserSession
 from api.services.auth_service import get_session_status, validate_auth_token
 from api.serializers import AuthResponseSerializer, AuthNameSerializer
 
+from api.services.log_service import LogHelper
+
+
 class AuthView(APIView):
 
     @swagger_auto_schema(
@@ -47,6 +50,7 @@ class AuthView(APIView):
         token = signing.dumps({'session_id': session.id})
         response = JsonResponse({'message': 'Autenticado com sucesso.'})
         response.set_cookie('auth_token', token, httponly=True, samesite='Lax')
+        LogHelper.create_log("Novo usuário criado", 'INFO', 1)
         return response
 
     @swagger_auto_schema(
@@ -73,7 +77,11 @@ class AuthView(APIView):
         if not is_valid or decoded_data is None:
             return JsonResponse({"error": "Token de autenticação inválido"}, status=401)
 
-        session_id = decoded_data["session_id"]
+        try:
+            session_id = decoded_data["session_id"]
+        except:
+            return JsonResponse({"error": "Id de usuário não encontrado"})
+        
         try:
             session = UserSession.objects.get(id=session_id)
         except UserSession.DoesNotExist:
