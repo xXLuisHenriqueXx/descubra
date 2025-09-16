@@ -3,7 +3,7 @@ import type { IAdminLoginParams } from "../common/interface/Admin.interface";
 
 export const AdminService = {
   login: async (params: IAdminLoginParams) => {
-    const response = await API.post("/admin/login/", params);
+    const response = await API.post("/admin/login", params);
 
     if (response.status === 401) throw new Error("Credenciais inválidas");
 
@@ -13,11 +13,13 @@ export const AdminService = {
   health: async () => {
     const response = await API.get("/admin/health");
 
+    console.log(response);
+
     return response.data;
   },
 
   logsWindow: async () => {
-    const response = await API.get("/admin/logs_window/?inicio=0&offset=80");
+    const response = await API.get("/admin/logs_window?inicio=0&offset=80");
 
     if (response.status === 400) throw new Error("Parâmetros inválidos.");
 
