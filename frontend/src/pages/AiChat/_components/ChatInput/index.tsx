@@ -6,7 +6,7 @@ import { Input } from "../../../../components/ui/input";
 
 const ChatInputStyles = tv({
   slots: {
-    containerMain: "fixed left-0 right-0 bottom-0",
+    containerMain: "fixed left-0 right-0 bottom-0 bg-background",
     containerContent: "flex flex-row items-center gap-x-2 lg:gap-x-4 w-full",
     containerQuick:
       "absolute -top-12 flex flex-row flex-nowrap gap-x-2 lg:gap-x-4 w-full overflow-x-auto",
