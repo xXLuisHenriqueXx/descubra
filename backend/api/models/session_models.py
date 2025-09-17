@@ -13,6 +13,7 @@ class UserSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_IDLE)
     name = models.CharField(max_length=20)
+    active = models.BooleanField(default=True)
     
     def __str__(self):
         return f"Session {self.id} (assistant: {self.thread_id}) - {self.status}"

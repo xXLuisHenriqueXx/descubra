@@ -32,8 +32,10 @@ class AiSendMessageView(APIView):
         except json.JSONDecodeError:
             return JsonResponse({"error": "JSON inválido"}, status=400)
 
-        session_id = decoded_data["session_id"]
-
+        try:
+            session_id = decoded_data["session_id"]
+        except:
+            return JsonResponse({"error": "Id de usuário não encontrado"})
         required_fields = ["message"]
         missing_fields = [field for field in required_fields if field not in data]
         if missing_fields:
@@ -66,7 +68,10 @@ class AiChatHistoryView(APIView):
         if not is_valid or decoded_data is None:
             return JsonResponse({"error": "Token de autenticação inválido"}, status=401)
 
-        session_id = decoded_data["session_id"]
+        try:
+            session_id = decoded_data["session_id"]
+        except:
+            return JsonResponse({"error": "Id de usuário não encontrado"})
         history = get_chat_history(session_id)
         return JsonResponse({"history": history}, safe=False, status=200)
 
@@ -87,7 +92,10 @@ class AiLatestMessageView(APIView):
         if not is_valid or decoded_data is None:
             return JsonResponse({"error": "Token de autenticação inválido"}, status=401)
 
-        session_id = decoded_data["session_id"]
+        try:
+            session_id = decoded_data["session_id"]
+        except:
+            return JsonResponse({"error": "Id de usuário não encontrado"})
         latest_message = get_last_unprocessed_message(session_id)
         if latest_message:
             data = {

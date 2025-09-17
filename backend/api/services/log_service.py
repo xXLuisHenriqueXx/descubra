@@ -43,9 +43,9 @@ class LogHelper:
 
 
 # Leitura dos limites do sistema a partir de variáveis de ambiente
-MAX_TOTAL_MESSAGES = int(os.getenv("MAX_TOTAL_MESSAGES", 0))
-MAX_TOTAL_WORDS = int(os.getenv("MAX_TOTAL_WORDS", 0))
-MAX_TOTAL_SESSIONS = int(os.getenv("MAX_TOTAL_SESSIONS", 0))
+MAX_TOTAL_MESSAGES = int(os.getenv("MAX_TOTAL_MESSAGES"))
+MAX_TOTAL_WORDS = int(os.getenv("MAX_TOTAL_WORDS"))
+MAX_TOTAL_SESSIONS = int(os.getenv("MAX_TOTAL_SESSIONS"))
 
 
 def get_user_rate_status(session: UserSession) -> dict:
@@ -156,6 +156,7 @@ def check_system_health() -> dict:
     if sessions_status["sessions_active"] >= sessions_status["sessions_limit"]:
         health_report["status"] = "DEGRADED"
         LogHelper.create_log(
-            "Número máximo de sessões ativas atingido.", log_type="WARNING", priority=3)
+            "Número máximo de sessões ativas atingido.", log_type="WARNING", priority=4)
 
+    LogHelper.create_log("Status de saúde do sistema: " + str(health_report), "INFO", 2)
     return health_report
