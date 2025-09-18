@@ -4,3 +4,4 @@ openai
 djangorestframework
 drf-yasg
 requests
+dj-database-url

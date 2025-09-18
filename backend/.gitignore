@@ -1,6 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
+# CUSTOM IGNORES
+Dockerfile.dev
+Dockerfile.postgres
+start_linux.sh
+stop_linux.sh
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

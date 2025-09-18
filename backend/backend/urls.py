@@ -5,8 +5,6 @@ from api.views.auth_view import AuthView
 
 from api.views import admin_pannel_views
 from api.views.dev_populate_view import DevPopulateView
-from api.views.frontend_view import frontend
-
 
 # Swagger imports
 from rest_framework import permissions
@@ -27,9 +25,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    re_path(r'^(?P<path>assets/.*)$', frontend),
-    re_path(r'^(?P<path>vite\.svg)$', frontend),
-
     path('admin/', admin.site.urls),
     path('api/ai/auth', AuthView.as_view(), name="ai-auth"),
     path('api/ai/send', AiSendMessageView.as_view(), name="ai-send"),
@@ -50,10 +45,8 @@ urlpatterns = [
     path('api/admin/session/deactivate', admin_pannel_views.DeactivateSessionView.as_view(), name='session-deactivate'),
 
 
-    path('api/dev/populate', DevPopulateView.as_view(), name='dev-populate'),
+    #path('api/dev/populate', DevPopulateView.as_view(), name='dev-populate'),
 
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-    re_path(r'^(?!api/).*$', frontend),
+    #path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    #path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
