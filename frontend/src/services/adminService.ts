@@ -13,8 +13,6 @@ export const AdminService = {
   health: async () => {
     const response = await API.get("/admin/health");
 
-    console.log(response);
-
     return response.data;
   },
 
@@ -33,7 +31,7 @@ export const AdminService = {
   },
 
   userChats: async (id: number) => {
-    const response = await API.get(`/admin/user_chats/?user_id=${id}`);
+    const response = await API.get(`/admin/user_chats?user_id=${id}`);
 
     if (response.status === 401)
       throw new Error("Parâmetro user_id é necessário.");
@@ -53,6 +51,24 @@ export const AdminService = {
     const response = await API.post("/admin/session/deactivate", {
       user_id: id,
     });
+
+    return response.data;
+  },
+
+  checkStatusChat: async () => {
+    const response = await API.get("/admin/chat/status");
+
+    return response.data.ai_chat_active;
+  },
+
+  deactiveChat: async () => {
+    const response = await API.post("/admin/chat/deactivate");
+
+    return response.data;
+  },
+
+  activeChat: async () => {
+    const response = await API.post("/admin/chat/activate");
 
     return response.data;
   },

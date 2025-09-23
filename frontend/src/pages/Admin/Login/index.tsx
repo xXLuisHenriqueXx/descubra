@@ -42,7 +42,6 @@ export default function AdminLogin() {
     password: "",
   });
   const navigate = useNavigate();
-  console.log(fields);
 
   const typeInputPassword = showPassword ? "text" : "password";
 
@@ -52,11 +51,7 @@ export default function AdminLogin() {
       password: fields.password,
     };
 
-    console.log(params);
-
     const response = await AdminService.login(params);
-
-    console.log(response);
 
     if (response.status === 200) navigate("/admin/dashboard");
   };

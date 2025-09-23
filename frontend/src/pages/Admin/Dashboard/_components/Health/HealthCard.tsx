@@ -28,7 +28,7 @@ const HealthCard = ({
 
       <Separator />
 
-      <CardContent className="flex flex-1 items-center justify-center text-center font-bold bg-highlight/30 rounded-lg">
+      <CardContent className="flex flex-col flex-1 gap-y-4 items-center justify-center text-center font-bold bg-highlight/30 rounded-lg">
         {children}
       </CardContent>
     </Card>

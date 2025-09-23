@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Info, X } from "lucide-react";
 
 import UserChats from "../UserChats";
@@ -16,19 +16,44 @@ import {
 import { formatDate } from "../../../../../utils/FormatDate";
 import { Button } from "../../../../../components/ui/button";
 import { AdminService } from "../../../../../services/adminService";
+import Loader from "../Loader";
 
 interface UsersLogsProps {
-  data?: IUsersLogs[];
   userSelected: boolean;
   setUserSelected: (value: boolean) => void;
 }
 
 export default function UsersLogs({
-  data,
   userSelected,
   setUserSelected,
 }: UsersLogsProps) {
   const [userId, setUserId] = useState<number>(0);
+  const [users, setUsers] = useState<IUsersLogs[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleFetchUsers = async () => {
+    setIsLoading(true);
+
+    try {
+      await AdminService.userLogs().then((response) => {
+        setUsers(response);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchUsers();
+
+    return () => {};
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const handleOpenUserChats = (id: number) => {
     setUserId(id);
@@ -63,7 +88,7 @@ export default function UsersLogs({
           msOverflowStyle: "none",
         }}
       >
-        {data && data.length > 0 ? (
+        {users && users.length > 0 ? (
           <Table>
             <TableHeader className="bg-card">
               <TableRow>
@@ -78,7 +103,7 @@ export default function UsersLogs({
             </TableHeader>
 
             <TableBody>
-              {data.map((item) => (
+              {users.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="uppercase">{item.status}</TableCell>
                   <TableCell>{item.name ? item.name : item.id}</TableCell>

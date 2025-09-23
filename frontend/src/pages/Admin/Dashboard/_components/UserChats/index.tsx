@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../../../../components/ui/table";
+import Loader from "../Loader";
 
 interface UserChatsProps {
   id: number;
@@ -18,16 +19,33 @@ interface UserChatsProps {
 
 export default function UserChats({ id }: UserChatsProps) {
   const [userChats, setUserChats] = useState<IUserChats[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleGetData = async () => {
+    setIsLoading(true);
+
+    try {
+      await AdminService.userChats(id).then((response) => {
+        console.log(response);
+
+        setUserChats(response);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     handleGetData();
+
+    return () => {};
   }, []);
 
-  const handleGetData = async () => {
-    await AdminService.userChats(id).then((response) => {
-      setUserChats(response);
-    });
-  };
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <section className="flex flex-col items-start gap-y-4 w-full h-screen mt-16">

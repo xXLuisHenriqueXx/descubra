@@ -1,6 +1,7 @@
-import { Separator } from "../../../../../components/ui/separator";
+import { useEffect, useState } from "react";
 
-import type { ILogsWindow } from "../../../../../common/interface/Admin.interface";
+import { Separator } from "../../../../../components/ui/separator";
+import Loader from "../Loader";
 import {
   Table,
   TableBody,
@@ -10,11 +11,37 @@ import {
   TableRow,
 } from "../../../../../components/ui/table";
 
-interface GeneralLogsProps {
-  data?: ILogsWindow[];
-}
+import type { ILogsWindow } from "../../../../../common/interface/Admin.interface";
+import { AdminService } from "../../../../../services/adminService";
 
-export default function GeneralLogs({ data }: GeneralLogsProps) {
+export default function GeneralLogs() {
+  const [logs, setLogs] = useState<ILogsWindow[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleFetchLogs = async () => {
+    setIsLoading(true);
+
+    try {
+      await AdminService.logsWindow().then((response) => {
+        setLogs(response);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchLogs();
+
+    return () => {};
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <section className="flex flex-col items-start gap-y-4 w-full h-screen mt-16">
       <header className="flex flex-col px-4 text-foreground">
@@ -33,7 +60,7 @@ export default function GeneralLogs({ data }: GeneralLogsProps) {
           msOverflowStyle: "none",
         }}
       >
-        {data && data.length > 0 ? (
+        {logs && logs.length > 0 ? (
           <Table>
             <TableHeader className="bg-card">
               <TableRow>
@@ -41,12 +68,12 @@ export default function GeneralLogs({ data }: GeneralLogsProps) {
                 <TableHead className="max-w-lg overflow-hidden">
                   Descrição
                 </TableHead>
-                <TableHead>Data de Criação</TableHead>
+                <TableHead>logs de Criação</TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
-              {data.map((item) => (
+              {logs.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>{item.log_type}</TableCell>
                   <TableCell

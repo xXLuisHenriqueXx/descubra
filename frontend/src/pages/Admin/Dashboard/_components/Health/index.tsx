@@ -12,7 +12,7 @@ import {
 import type { IHealth } from "../../../../../common/interface/Admin.interface";
 import { Separator } from "../../../../../components/ui/separator";
 import HealthCard from "./HealthCard";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   ChartContainer,
   ChartLegend,
@@ -21,37 +21,77 @@ import {
 } from "../../../../../components/ui/chart";
 import { Label, Pie, PieChart, Sector } from "recharts";
 import type { PieSectorDataItem } from "recharts/types/polar/Pie";
-
-interface HealthProps {
-  data?: IHealth;
-}
+import { AdminService } from "../../../../../services/adminService";
+import Loader from "../Loader";
+import { Button } from "../../../../../components/ui/button";
 
 interface CardConfig {
   id: number;
   title: string;
   icon: LucideIcon;
-  renderContent: (data?: IHealth) => ReactNode;
+  renderContent: (logs?: IHealth) => ReactNode;
 }
 
-const Health = ({ data }: HealthProps) => {
-  console.log(data?.used_tokens);
+const Health = () => {
+  const [logs, setLogs] = useState<IHealth>();
+  const [chatStatus, setChatStatus] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleFetchLogs = async () => {
+    setIsLoading(true);
+
+    try {
+      await AdminService.health().then((response) => {
+        setLogs(response);
+      });
+      await AdminService.checkStatusChat().then((response) => {
+        setChatStatus(response);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeactiveChat = async () => {
+    await AdminService.deactiveChat().then(() => {
+      handleFetchLogs();
+    });
+  };
+
+  const handleActiveChat = async () => {
+    await AdminService.activeChat().then(() => {
+      handleFetchLogs();
+    });
+  };
+
+  useEffect(() => {
+    handleFetchLogs();
+
+    return () => {};
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const sessionsPercentage =
-    data?.sessions_status?.sessions_limit &&
-    data?.sessions_status?.sessions_active /
-      data?.sessions_status?.sessions_limit;
+    logs?.sessions_status?.sessions_limit &&
+    logs?.sessions_status?.sessions_active /
+      logs?.sessions_status?.sessions_limit;
 
   const chartSessionsData = [
     {
       name: "Usadas",
-      value: Number(data?.sessions_status?.sessions_active ?? 0),
+      value: Number(logs?.sessions_status?.sessions_active ?? 0),
       fill: "var(--primary)",
     },
     {
       name: "Restantes",
       value: Number(
-        (data?.sessions_status?.sessions_limit ?? 0) -
-          (data?.sessions_status?.sessions_active ?? 0)
+        (logs?.sessions_status?.sessions_limit ?? 0) -
+          (logs?.sessions_status?.sessions_active ?? 0)
       ),
       fill: "var(--foreground)",
     },
@@ -76,8 +116,8 @@ const Health = ({ data }: HealthProps) => {
       id: 1,
       title: "Situação do Bot OpenAI",
       icon: Bot,
-      renderContent: (data) =>
-        data?.openai_api?.toLowerCase() === "ok" ? (
+      renderContent: () =>
+        logs?.openai_api?.toLowerCase() === "ok" ? (
           <CheckCircle2 size={64} strokeWidth={1} />
         ) : (
           <CircleX size={64} strokeWidth={1} />
@@ -87,8 +127,8 @@ const Health = ({ data }: HealthProps) => {
       id: 2,
       title: "Situação do Banco de Dados",
       icon: Database,
-      renderContent: (data) =>
-        data?.database?.toLowerCase() === "ok" ? (
+      renderContent: () =>
+        logs?.database?.toLowerCase() === "ok" ? (
           <CheckCircle2 size={64} strokeWidth={1} />
         ) : (
           <CircleX size={64} strokeWidth={1} />
@@ -98,8 +138,8 @@ const Health = ({ data }: HealthProps) => {
       id: 3,
       title: "Situação das Variáveis de ambiente",
       icon: Mountain,
-      renderContent: (data) =>
-        data?.env_vars?.toLowerCase() === "ok" ? (
+      renderContent: () =>
+        logs?.env_vars?.toLowerCase() === "ok" ? (
           <CheckCircle2 size={64} strokeWidth={1} />
         ) : (
           <CircleX size={64} strokeWidth={1} />
@@ -163,19 +203,19 @@ const Health = ({ data }: HealthProps) => {
       id: 5,
       title: "Situações dos tokens",
       icon: Coins,
-      renderContent: (data) => (
+      renderContent: () => (
         <span className="flex flex-col gapy-2">
           <p className="text-sm font-bold">
-            Modelo: {data?.used_tokens?.ai_model}
+            Modelo: {logs?.used_tokens?.ai_model}
           </p>
           <p className="text-sm font-bold">
-            Preço estimado: {data?.used_tokens?.estimated_price_usd}
+            Preço estimado: {logs?.used_tokens?.estimated_price_usd}
           </p>
           <p className="text-sm font-bold">
-            Tokens de input restantes: {data?.used_tokens?.total_input_tokens}
+            Tokens de input restantes: {logs?.used_tokens?.total_input_tokens}
           </p>
           <p className="text-sm font-bold">
-            Tokens de output restantes: {data?.used_tokens?.total_output_tokens}
+            Tokens de output restantes: {logs?.used_tokens?.total_output_tokens}
           </p>
         </span>
       ),
@@ -184,11 +224,34 @@ const Health = ({ data }: HealthProps) => {
       id: 6,
       title: "Situação Geral",
       icon: ActivitySquare,
-      renderContent: (data) =>
-        data?.status?.toLowerCase() === "ok" ? (
+      renderContent: () =>
+        logs?.status?.toLowerCase() === "ok" ? (
           <CheckCircle2 size={64} strokeWidth={1} />
         ) : (
           <CircleX size={64} strokeWidth={1} />
+        ),
+    },
+    {
+      id: 6,
+      title: "Chat ativado?",
+      icon: ActivitySquare,
+      renderContent: () =>
+        chatStatus ? (
+          <>
+            <CheckCircle2 size={64} strokeWidth={1} />
+
+            <Button variant={"destructive"} onClick={handleDeactiveChat}>
+              Desativar Chat
+            </Button>
+          </>
+        ) : (
+          <>
+            <CircleX size={64} strokeWidth={1} />
+
+            <Button variant={"destructive"} onClick={handleActiveChat}>
+              Ativar Chat
+            </Button>
+          </>
         ),
     },
   ];
@@ -207,7 +270,7 @@ const Health = ({ data }: HealthProps) => {
       <article className="grid grid-cols-4 gap-x-4 -gap-y-64 w-full min-h-full px-4 text-foreground">
         {cardsData.map(({ id, title, icon, renderContent }) => (
           <HealthCard key={id} title={title} icon={icon}>
-            {renderContent(data)}
+            {renderContent()}
           </HealthCard>
         ))}
       </article>

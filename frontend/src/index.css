@@ -33,6 +33,7 @@
 
   --color-ring: var(--ring);
   --color-border: var(--border);
+  --color-destructive: var(--destructive);
 
   /* FONTS */
   --font-inter: "Inter", sans-serif;
@@ -81,6 +82,9 @@
 
   --border: rgba(37, 39, 41, 0.1);
   --ring: rgba(37, 39, 41, 0.2);
+
+  --destructive: rgba(181, 44, 44, 0.5);
+  --destructive-foreground: rgba(255, 255, 255, 1);
 }
 
 .dark {
@@ -106,6 +110,9 @@
 
   --border: rgba(255, 255, 255, 0.1);
   --ring: rgba(255, 255, 255, 0.2);
+
+  --destructive: rgba(255, 32, 86, 0.5);
+  --destructive-foreground: rgba(255, 255, 255, 1);
 }
 
 @layer base {
