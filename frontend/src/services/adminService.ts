@@ -42,4 +42,18 @@ export const AdminService = {
 
     return response.data;
   },
+
+  activeSession: async (id: number) => {
+    const response = await API.post("/admin/session/activate", { user_id: id });
+
+    return response.data;
+  },
+
+  deactiveSession: async (id: number) => {
+    const response = await API.post("/admin/session/deactivate", {
+      user_id: id,
+    });
+
+    return response.data;
+  },
 };

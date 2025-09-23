@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
-import { Logs } from "lucide-react";
+
 import type { IUserChats } from "../../../../../common/interface/Admin.interface";
 import { AdminService } from "../../../../../services/adminService";
+import { Separator } from "../../../../../components/ui/separator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../../../components/ui/table";
 
 interface UserChatsProps {
   id: number;
@@ -21,33 +30,54 @@ export default function UserChats({ id }: UserChatsProps) {
   };
 
   return (
-    <section className="flex flex-col items-start w-full h-screen mt-20 px-4">
-      <header className="flex flex-row items-center w-full gap-x-2 py-1 mb-8 border-b-2 border-b-highlight text-highlight">
-        <Logs size={32} />
-        <h2 className="text-xl font-extrabold">{id}</h2>
+    <section className="flex flex-col items-start gap-y-4 w-full h-screen mt-16">
+      <header className="flex flex-col px-4 text-foreground">
+        <h1 className="text-base font-semibold">{id}</h1>
+        <p className="text-xs text-foreground/50">Mensagens do usuário ...</p>
       </header>
 
-      <article className="flex flex-col w-full">
-        {userChats?.length ? (
-          userChats.map((item) => (
-            <div
-              key={item.id}
-              className="relative flex flex-row items-center w-full gap-x-2 py-4  border-b-2 border-highlight/50 text-highlight"
-            >
-              <div className="p-2 bg-highlight/50 rounded-sm">
-                <p className="text-xs font-bold">{item.role}</p>
-              </div>
-              <h3 className="text-base font-extrabold">{item.session_id}</h3>
-              <p className="text-xs font-semibold text-highlight/50 max-w-[75%]">
-                {item.conteudo}
-              </p>
-              <p className="absolute right-0 text-xs">{item.timestamp}</p>
-            </div>
-          ))
+      <Separator />
+
+      <article
+        className="flex flex-col w-full px-4 overflow-y-auto"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {userChats && userChats.length > 0 ? (
+          <Table>
+            <TableHeader className="bg-card">
+              <TableRow>
+                <TableHead>Timestamp</TableHead>
+                <TableHead>Mensagem</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Processado?</TableHead>
+                <TableHead>Id da Sessão</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {userChats.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.timestamp}</TableCell>
+                  <TableCell
+                    className="max-w-lg overflow-auto text-wrap"
+                    style={{ whiteSpace: "normal" }}
+                  >
+                    {item.conteudo}
+                  </TableCell>
+                  <TableCell>{item.role}</TableCell>
+                  <TableCell>{item.processado ? "Sim" : "Nao"}</TableCell>
+                  <TableCell>{item.session_id}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         ) : (
-          <h3 className="text-highlight text-base font-extrabold">
-            Parece que esse usuário ainda não tem nenhum chat
-          </h3>
+          <h2 className="text-foreground text-sm">
+            Esse usuário não possui mensagens para serem mostradas ...
+          </h2>
         )}
       </article>
     </section>

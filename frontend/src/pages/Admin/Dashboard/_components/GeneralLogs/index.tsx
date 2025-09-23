@@ -4,6 +4,7 @@ import type { ILogsWindow } from "../../../../../common/interface/Admin.interfac
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -37,25 +38,25 @@ export default function GeneralLogs({ data }: GeneralLogsProps) {
             <TableHeader className="bg-card">
               <TableRow>
                 <TableHead>Tipo</TableHead>
-                <TableHead>Descrição</TableHead>
+                <TableHead className="max-w-lg overflow-hidden">
+                  Descrição
+                </TableHead>
                 <TableHead>Data de Criação</TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
               {data.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative flex flex-row items-center w-full gap-x-4 py-4 border-b-2 border-highlight/50 text-highlight"
-                >
-                  <div className="p-1 bg-highlight/50 rounded-xs">
-                    <p className="text-xs font-bold">{item.log_type}</p>
-                  </div>
-                  <h3 className="text-base font-extrabold max-w-[60%]">
+                <TableRow key={item.id}>
+                  <TableCell>{item.log_type}</TableCell>
+                  <TableCell
+                    className="max-w-lg overflow-auto text-wrap"
+                    style={{ whiteSpace: "normal" }}
+                  >
                     {item.message}
-                  </h3>
-                  <p className="absolute right-0 text-xs">{item.timestamp}</p>
-                </div>
+                  </TableCell>
+                  <TableCell>{item.timestamp}</TableCell>
+                </TableRow>
               ))}
             </TableBody>
           </Table>

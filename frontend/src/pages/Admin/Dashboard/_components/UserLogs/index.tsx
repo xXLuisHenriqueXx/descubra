@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Info } from "lucide-react";
+import { Check, Info, X } from "lucide-react";
 
 import UserChats from "../UserChats";
 
@@ -15,6 +15,7 @@ import {
 } from "../../../../../components/ui/table";
 import { formatDate } from "../../../../../utils/FormatDate";
 import { Button } from "../../../../../components/ui/button";
+import { AdminService } from "../../../../../services/adminService";
 
 interface UsersLogsProps {
   data?: IUsersLogs[];
@@ -32,6 +33,14 @@ export default function UsersLogs({
   const handleOpenUserChats = (id: number) => {
     setUserId(id);
     setUserSelected(true);
+  };
+
+  const handleActiveSession = async (id: number) => {
+    await AdminService.activeSession(id);
+  };
+
+  const handleDeactiveSession = async (id: number) => {
+    await AdminService.deactiveSession(id);
   };
 
   return userSelected ? (
@@ -60,9 +69,11 @@ export default function UsersLogs({
               <TableRow>
                 <TableHead>Status</TableHead>
                 <TableHead>Identificador</TableHead>
+                <TableHead>Total de mensagens</TableHead>
+                <TableHead>Total de tokens</TableHead>
                 <TableHead>Data de Criação</TableHead>
                 <TableHead className="text-center w-28">Visualizar</TableHead>
-                <TableHead className="text-center w-28">Excluir</TableHead>
+                <TableHead className="text-center w-28">Desativado?</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -71,6 +82,8 @@ export default function UsersLogs({
                 <TableRow key={item.id}>
                   <TableCell className="uppercase">{item.status}</TableCell>
                   <TableCell>{item.name ? item.name : item.id}</TableCell>
+                  <TableCell>{item.total_messages}</TableCell>
+                  <TableCell>{item.total_tokens}</TableCell>
                   <TableCell>{formatDate(new Date(item.created_at))}</TableCell>
                   <TableCell className="text-center">
                     <Button
@@ -82,9 +95,23 @@ export default function UsersLogs({
                     </Button>
                   </TableCell>
                   <TableCell className="text-center">
-                    <Button variant={"outline"} size="icon">
-                      <Info />
-                    </Button>
+                    {item.active ? (
+                      <Button
+                        variant={"outline"}
+                        size="icon"
+                        onClick={() => handleDeactiveSession(item.id)}
+                      >
+                        <X />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant={"outline"}
+                        size="icon"
+                        onClick={() => handleActiveSession(item.id)}
+                      >
+                        <Check />
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

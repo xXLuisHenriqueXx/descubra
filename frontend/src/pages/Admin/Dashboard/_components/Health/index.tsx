@@ -3,6 +3,7 @@ import {
   Bot,
   CheckCircle2,
   CircleX,
+  Coins,
   Database,
   Mountain,
   Ticket,
@@ -33,6 +34,8 @@ interface CardConfig {
 }
 
 const Health = ({ data }: HealthProps) => {
+  console.log(data?.used_tokens);
+
   const sessionsPercentage =
     data?.sessions_status?.sessions_limit &&
     data?.sessions_status?.sessions_active /
@@ -158,6 +161,27 @@ const Health = ({ data }: HealthProps) => {
     },
     {
       id: 5,
+      title: "Situações dos tokens",
+      icon: Coins,
+      renderContent: (data) => (
+        <span className="flex flex-col gapy-2">
+          <p className="text-sm font-bold">
+            Modelo: {data?.used_tokens?.ai_model}
+          </p>
+          <p className="text-sm font-bold">
+            Preço estimado: {data?.used_tokens?.estimated_price_usd}
+          </p>
+          <p className="text-sm font-bold">
+            Tokens de input restantes: {data?.used_tokens?.total_input_tokens}
+          </p>
+          <p className="text-sm font-bold">
+            Tokens de output restantes: {data?.used_tokens?.total_output_tokens}
+          </p>
+        </span>
+      ),
+    },
+    {
+      id: 6,
       title: "Situação Geral",
       icon: ActivitySquare,
       renderContent: (data) =>
