@@ -36,7 +36,6 @@ const Health = () => {
   const [logs, setLogs] = useState<IHealth>();
   const [chatStatus, setChatStatus] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log(logs);
 
   const handleFetchLogs = async () => {
     setIsLoading(true);

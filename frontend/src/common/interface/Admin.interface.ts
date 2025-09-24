@@ -26,7 +26,7 @@ export interface IHealth {
   database?: string;
   env_vars?: string;
   sessions_status?: ISessionsStatus;
-  used_tokens?: IUsedTokens;
+  used_tokens: IUsedTokens[];
   status?: string;
 }
 
