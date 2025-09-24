@@ -36,6 +36,7 @@ const Health = () => {
   const [logs, setLogs] = useState<IHealth>();
   const [chatStatus, setChatStatus] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  console.log(logs);
 
   const handleFetchLogs = async () => {
     setIsLoading(true);
@@ -44,6 +45,7 @@ const Health = () => {
       await AdminService.health().then((response) => {
         setLogs(response);
       });
+
       await AdminService.checkStatusChat().then((response) => {
         setChatStatus(response);
       });
@@ -205,17 +207,19 @@ const Health = () => {
       icon: Coins,
       renderContent: () => (
         <span className="flex flex-col gapy-2">
-          <p className="text-sm font-bold">
-            Modelo: {logs?.used_tokens?.ai_model}
+          <p className="text-sm font-medium">
+            Modelo: {logs?.used_tokens[0]?.ai_model}
           </p>
-          <p className="text-sm font-bold">
-            Preço estimado: {logs?.used_tokens?.estimated_price_usd}
+          <p className="text-sm font-medium">
+            Preço estimado: {logs?.used_tokens[0]?.estimated_price_usd}
           </p>
-          <p className="text-sm font-bold">
-            Tokens de input restantes: {logs?.used_tokens?.total_input_tokens}
+          <p className="text-sm font-medium">
+            Tokens de input restantes:{" "}
+            {logs?.used_tokens[0]?.total_input_tokens}
           </p>
-          <p className="text-sm font-bold">
-            Tokens de output restantes: {logs?.used_tokens?.total_output_tokens}
+          <p className="text-sm font-medium">
+            Tokens de output restantes:{" "}
+            {logs?.used_tokens[0]?.total_output_tokens}
           </p>
         </span>
       ),
@@ -232,7 +236,7 @@ const Health = () => {
         ),
     },
     {
-      id: 6,
+      id: 7,
       title: "Chat ativado?",
       icon: ActivitySquare,
       renderContent: () =>
