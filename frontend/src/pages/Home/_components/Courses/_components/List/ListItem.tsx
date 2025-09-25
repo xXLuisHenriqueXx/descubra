@@ -4,6 +4,7 @@ import { tv } from "tailwind-variants";
 import { Separator } from "../../../../../../components/ui/separator";
 
 import type { ICourse } from "../../../../../../static/CoursesData";
+import { Button } from "../../../../../../components/ui/button";
 
 const listItemStyles = tv({
   slots: {
@@ -17,23 +18,29 @@ const listItemStyles = tv({
     titleSemester: "text-4xl font-bold text-foreground",
     textSemester:
       "text-sm lg:text-base font-medium text-foreground text-center",
+    buttonQuiz: "w-full py-6",
   },
   variants: {
     color: {
       process: {
         containerGeneralItem: "bg-process/10",
+        buttonQuiz: "bg-process/50 hover:bg-process/75",
       },
       ecosystem: {
         containerGeneralItem: "bg-ecosystem/10",
+        buttonQuiz: "bg-ecosystem/50 hover:bg-ecosystem/75",
       },
       energy: {
         containerGeneralItem: "bg-energy/10",
+        buttonQuiz: "bg-energy/50 hover:bg-energy/75",
       },
       project: {
         containerGeneralItem: "bg-project/10",
+        buttonQuiz: "bg-project/50 hover:bg-project/75",
       },
       tech: {
         containerGeneralItem: "bg-tech/10",
+        buttonQuiz: "bg-tech/50 hover:bg-tech/75",
       },
     },
   },
@@ -48,6 +55,7 @@ const {
   title,
   titleSemester,
   textSemester,
+  buttonQuiz,
 } = listItemStyles();
 
 interface IListItemProps {
@@ -119,6 +127,18 @@ export const ListItem = ({ id, course, isOpen }: IListItemProps) => {
               ))}
             </div>
           </div>
+
+          {course.quiz && (
+            <>
+              <Separator />
+
+              <a href={course.quiz} target="_blank" rel="noopener noreferrer">
+                <Button variant="default" className={buttonQuiz({ color: id })}>
+                  Quiz do curso
+                </Button>
+              </a>
+            </>
+          )}
         </motion.div>
       )}
     </AnimatePresence>

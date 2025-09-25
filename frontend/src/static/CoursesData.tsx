@@ -190,6 +190,7 @@ export interface ICourse {
   reputation: ReactNode;
   affinities: IAffinity[];
   actions: IAction[];
+  quiz?: string;
 }
 
 interface IAdvantage {
@@ -389,6 +390,7 @@ export const CoursesData: ICourses[] = [
           { id: "action-9", children: <UrbanDesign /> },
           { id: "action-10", children: <SearchTeachingInnovation /> },
         ],
+        quiz: "https://docs.google.com/forms/d/e/1FAIpQLSdCuehHlfvVGXzRAhK5bjYCgEEA15l5sqLKoLMKB78tilIc5Q/viewform?usp=dialog",
       },
       {
         id: "ecosystem-2",
