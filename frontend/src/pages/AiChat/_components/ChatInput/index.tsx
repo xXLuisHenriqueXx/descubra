@@ -9,7 +9,7 @@ const ChatInputStyles = tv({
     containerMain: "fixed left-0 right-0 bottom-0 bg-background",
     containerContent: "flex flex-row items-center gap-x-2 lg:gap-x-4 w-full",
     containerQuick:
-      "absolute -top-12 flex flex-row flex-nowrap gap-x-2 lg:gap-x-4 w-full overflow-x-auto",
+      "absolute -top-12 left-4 right-4 flex flex-row flex-nowrap gap-x-2 lg:gap-x-4 w-full overflow-x-auto",
     input: "py-5 text-sm lg:text-base font-regular text-foreground",
   },
 });
@@ -55,12 +55,35 @@ const ChatInput = ({
       action: () => quickSend("Qual o perfil do aluno"),
       disabled: false,
     },
+    {
+      id: 4,
+      text: "Preciso ser bom em matemática para a área da tecnologia?",
+      action: () =>
+        quickSend("Preciso ser bom em matemática para a área da tecnologia?"),
+      disabled: false,
+    },
+    {
+      id: 5,
+      text: "Qual a engenharia mais legal?",
+      action: () => quickSend("Qual a engenharia mais legal?"),
+      disabled: false,
+    },
+    {
+      id: 6,
+      text: "Posso ter carreira internacional estudando no CT?",
+      action: () =>
+        quickSend("Posso ter carreira internacional estudando no CT?"),
+      disabled: false,
+    },
   ];
 
   return (
     <Card className={containerMain()}>
       <CardContent className={containerContent()}>
-        <div className={containerQuick()}>
+        <div
+          className={containerQuick()}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {quickResponses.map((item) => (
             <Button
               variant={"outline"}
